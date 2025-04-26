@@ -1,0 +1,24 @@
+# Definir variáveis
+RESOURCE_GROUP="rg-cloud-solutions"
+VM_NAME="vm-arquitetura-cloud"
+LOCATION="eastus"
+VM_SIZE="Standard_B2s"
+IMAGE="UbuntuLTS"
+ADMIN_USER="azureadmin"
+SSH_KEY="~/.ssh/id_rsa.pub"
+
+# Criar grupo de recursos
+az group create --name $RESOURCE_GROUP --location $LOCATION
+
+# Criar máquina virtual
+az vm create \
+    --resource-group $RESOURCE_GROUP \
+    --name $VM_NAME \
+    --image $IMAGE \
+    --size $VM_SIZE \
+    --admin-username $ADMIN_USER \
+    --ssh-key-values $SSH_KEY \
+    --public-ip-address ""
+
+# Exibir IP Público da VM
+az vm list-ip-addresses --resource-group $RESOURCE_GROUP --name $VM_NAME --output table
